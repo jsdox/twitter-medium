@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "1484e21a-8a91-4056-9e45-d14f75677d16",
+		"name": "laravel BP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Initialize",
+			"item": [
+				{
+					"name": "Initialize",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "57bb3b5b-64e6-4e62-b083-2e6e9c45b5e8",
+								"exec": [
+									"postman.setEnvironmentVariable(\"utils\", () => {",
+									"    ",
+									"    let my_package = {};",
+									"    ",
+									"    /**********************************************************/",
+									"    ",
+									"    my_package.coreResponseChecks = coreResponseChecks = () => {",
+									"        const response = pm.response.json();",
+									"        pm.test(\"Http status\", function () {",
+									"            pm.response.to.have.status(200);",
+									"        });",
+									"        pm.test(\"Body contain data\", function () {",
+									"            pm.expect(pm.response.text()).to.include('data');",
+									"        });",
+									"        // pm.test(\"Body contain success\", function () {",
+									"        //     pm.expect(pm.response.text()).to.include('success');",
+									"        // });",
+									"        // pm.test(\"Body contain true\", function () {",
+									"        //     pm.expect(pm.response.text()).to.include('true');",
+									"        // });",
+									"        // pm.test(\"Sucess equal true\", function () {",
+									"        //     pm.expect(response.success).to.eql(true);",
+									"        // });",
+									"        // pm.test(\"Body contain status\", function () {",
+									"        //     pm.expect(pm.response.text()).to.include('status');",
+									"        // });",
+									"        // pm.test(\"Body status\", function () {",
+									"        //     pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"        // });",
+									"        ",
+									"        ",
+									"        ",
+									"",
+									"        // var data = JSON.parse(responseBody);",
+									"        // tests[\"Status code is 200\"] = true;",
+									"        // if (responseCode.code !== 200) {",
+									"        //     tests[\"Status code is 200\"] = false;",
+									"        // }",
+									"        // tests[\"API success\"] = true;",
+									"        // if (data.success !== true) {",
+									"        //     tests[\"API success\"] = false;",
+									"        // }",
+									"        tests[\"Body contains data2\"] = true;",
+									"        if (!responseBody.has(\"data\")) {",
+									"            tests[\"Body contains data2\"] = false;",
+									"        }",
+									"       ",
+									"    //   pm.test(\"Body matches string\", function () {",
+									"    //         pm.expect(pm.response.text()).to.include(\"data\");",
+									"    //         pm.expect(pm.response.text()).to.include(\"success\");",
+									"    //   });",
+									"       ",
+									"    //   pm.test(\"Content-Type header is present\", function () {",
+									"    //       pm.response.to.have.header(\"Content-Type\");",
+									"    //   });",
+									"       ",
+									"",
+									"    }",
+									"    ",
+									"    /***************************************************/",
+									"    ",
+									"    my_package.testSaveUser = testSaveUser = () => {",
+									"        coreResponseChecks();",
+									"    }",
+									"    ",
+									"    ",
+									"    /*******************************************************/",
+									"    ",
+									"    return { my_package };",
+									"});",
+									"tests['Utils initialized'] = true;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_LBP}}",
+							"host": [
+								"{{API_URL_LBP}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Get Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b66a8318-35f9-4a46-8174-76cb5b35faa5",
+						"exec": [
+							"let utils = eval(environment.utils)().my_package;",
+							"utils.testSaveUser(); ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{API_URL_LBP}}/users",
+					"host": [
+						"{{API_URL_LBP}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2c0a9779-09dc-4c6b-9d39-b0b64f99e914",
+						"exec": [
+							"pm.environment.set(\"email\", \"email+\" + _.random(1, 10000) + \"@gmail.com\");",
+							"pm.environment.set(\"password\", _.random(1000, 100000) + 'xper@_00pass');",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c1f6a357-8c2d-4dc9-9686-7750c91894c1",
+						"exec": [
+							"let utils = eval(environment.utils)().my_package;",
+							"utils.testSaveUser(); ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": "{{API_URL_LBP}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "http://localhost/ucreate/laravel-boilerplate/",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer MIzaOtNjyrhwjuUnbBlOp2Dwu12I7ZhWJDjWLT9v91ahbVADjBR1RdOyUVGp",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "jatinder",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{API_URL_LBP}}/users",
+					"host": [
+						"{{API_URL_LBP}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
