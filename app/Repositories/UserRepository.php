@@ -14,7 +14,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function store($request)
     {
-        return $this->user->create($request->all());
+        return $this->user->create($request->all())->createToken('token-name');
     }
 
     public function get()
