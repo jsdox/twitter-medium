@@ -1,5 +1,5 @@
 <?php
-Route::group(['prefix' => config('constants.API_PREFIX'), 'middleware' => ['CheckHeaders']], function ()
+Route::group(['prefix' => config('constants.API_PREFIX'), 'middleware' => ['Cors', 'CheckHeaders']], function ()
 {
     // Route::get('/rollbar-test', function()
     // {
@@ -19,5 +19,6 @@ Route::group(['prefix' => config('constants.API_PREFIX'), 'middleware' => ['Chec
         return 'test';exit;
     });
     Route::post('/users', 'UsersController@store');
+    Route::middleware('auth:airlock')->get('/users', 'UsersController@get');
 
 });
