@@ -1,6 +1,5 @@
-# twitter-medium
-#test
-# Project Title
+
+# Twitter medium
 
 Simple overview of use/purpose.
 
