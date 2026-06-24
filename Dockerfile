@@ -4,7 +4,7 @@ FROM sandymadaan/php7.3-docker-newrelic:0.4
 # Copy local code to the container image.
 COPY . /var/www/html/
 
-#RUN chmod +x ./.deploy/commands/*.sh
+RUN chmod +x ./.deploy/commands/*.sh
 
 #RUN ./.deploy/commands/check_rejected_commits.sh
 
